@@ -1,0 +1,379 @@
+/* App.css */
+
+/* Conteneur principal */
+.app-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+
+.max-width-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Section de configuration */
+.config-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Grilles d'inputs */
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.input-field {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Section des points de régulation */
+.regulation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.regulation-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.regulation-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.regulation-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.regulation-point-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.point-input {
+  flex: 1;
+}
+
+.time-input {
+  width: 100px;
+}
+
+.remove-btn {
+  padding: 0.5rem;
+  color: #ef4444;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #fee2e2;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: #3b82f6;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.add-btn:hover {
+  background-color: #dbeafe;
+}
+
+.total-time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.total-time label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Section haut-le-pied */
+.haut-le-pied-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.haut-le-pied-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.haut-le-pied-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.haut-le-pied-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.haut-le-pied-input {
+  flex: 1;
+}
+
+.haut-le-pied-input label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Paramètres de génération */
+.generation-params {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Boutons */
+.generate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.generate-btn:hover {
+  background-color: #2563eb;
+}
+
+.print-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.print-btn:hover {
+  background-color: #059669;
+}
+
+/* Section des résultats */
+.results-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.schedules-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Styles des fiches voitures */
+.schedule-sheet {
+  background-color: white;
+  border: 2px solid black;
+  padding: 1rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  page-break-inside: avoid;
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.line-number {
+  font-weight: bold;
+}
+
+.tm-code {
+  font-size: 0.875rem;
+}
+
+.vehicle-number {
+  font-weight: bold;
+}
+
+.haut-le-pied-out,
+.haut-le-pied-in {
+  font-size: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+/* Tableau principal */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid black;
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+}
+
+.schedule-table th {
+  background-color: #f0f0f0;
+  font-weight: normal;
+}
+
+.schedule-table thead tr:first-child th {
+  font-weight: normal;
+}
+
+.hd-column {
+  font-weight: bold !important;
+}
+
+.regulation-point {
+  font-weight: bold !important;
+}
+
+.time-cell {
+  font-weight: bold;
+}
+
+.hd-time {
+  font-weight: bold;
+}
+
+.regulation-time {
+  font-weight: bold;
+}
+
+/* Fond grisé alternant pour les points de régulation */
+.regulation-gray {
+  background-color: #e0e0e0;
+}
+
+.arrival-time {
+  font-weight: bold;
+}
+
+/* Styles d'impression */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .app-container {
+    background-color: white;
+    padding: 0;
+  }
+  
+  .config-section,
+  .print-btn {
+    display: none;
+  }
+  
+  .results-section {
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .schedule-sheet {
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+  }
+  
+  .schedules-container {
+    gap: 2rem;
+  }
+
+  .service-separator {
+    border-top: 3px solid #000 !important;
+  }
+
+  .service-separator td {
+    border-top: 3px solid #000 !important;
+    padding-top: 10px !important;
+  }
+}
