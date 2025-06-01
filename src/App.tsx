@@ -82,12 +82,6 @@ const BusScheduleGenerator: React.FC = () => {
   
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
-  const formatTime = (minutes: number): string => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-  };
-
   const parseTime = (timeStr: string): number => {
     const [hours, minutes] = timeStr.split(':').map(Number);
     return hours * 60 + minutes;
@@ -281,10 +275,13 @@ const BusScheduleGenerator: React.FC = () => {
     points: RegulationPoint[], 
     index: number, 
     field: keyof RegulationPoint, 
-    value: string
+    value: string | number
   ): void => {
     const newPoints = [...points];
-    newPoints[index][field] = field === 'time' ? parseInt(value) || 0 : value;
+    newPoints[index] = {
+      ...newPoints[index],
+      [field]: field === 'time' ? (typeof value === 'number' ? value : parseInt(value) || 0) : value
+    };
     setter(newPoints);
   };
 
