@@ -79,6 +79,7 @@ const BusScheduleGenerator: React.FC = () => {
   const [firstDeparture, setFirstDeparture] = useState<string>('06:00');
   const [lastReturn, setLastReturn] = useState<string>('20:30');
   const [frequency, setFrequency] = useState<number>(20);
+  const [minPauseTime, setMinPauseTime] = useState<number>(0);
   
   const [schedules, setSchedules] = useState<Schedule[]>([]);
 
@@ -107,12 +108,34 @@ const BusScheduleGenerator: React.FC = () => {
     
     // Pour respecter la fréquence, le temps total d'un aller-retour doit être un multiple de la fréquence
     const totalTravelTime = travelTime1to2 + travelTime2to1;
-    const cycleTime = Math.ceil(totalTravelTime / frequency) * frequency;
+    let cycleTime = Math.ceil(totalTravelTime / frequency) * frequency;
     
     // Calcul des battements pour égaliser les temps
-    const totalBattementTime = cycleTime - totalTravelTime;
-    const battement1to2 = Math.floor(totalBattementTime / 2);
-    const battement2to1 = totalBattementTime - battement1to2;
+    let totalBattementTime = cycleTime - totalTravelTime;
+    let battement1to2 = Math.floor(totalBattementTime / 2);
+    let battement2to1 = totalBattementTime - battement1to2;
+    
+    // Vérifier si les battements respectent le temps de pause minimal
+    if (battement1to2 < minPauseTime || battement2to1 < minPauseTime) {
+      // Recalculer le cycle avec le temps de pause minimal
+      const minTotalBattement = minPauseTime * 2;
+      const minCycleTime = totalTravelTime + minTotalBattement;
+      cycleTime = Math.ceil(minCycleTime / frequency) * frequency;
+      
+      totalBattementTime = cycleTime - totalTravelTime;
+      battement1to2 = Math.floor(totalBattementTime / 2);
+      battement2to1 = totalBattementTime - battement1to2;
+      
+      // S'assurer que les deux battements respectent le minimum
+      if (battement1to2 < minPauseTime) {
+        battement1to2 = minPauseTime;
+        battement2to1 = totalBattementTime - battement1to2;
+      }
+      if (battement2to1 < minPauseTime) {
+        battement2to1 = minPauseTime;
+        battement1to2 = totalBattementTime - battement2to1;
+      }
+    }
     
     // Calcul du nombre minimum de voitures nécessaires
     const minVehicles = Math.ceil(cycleTime / frequency);
@@ -122,6 +145,7 @@ const BusScheduleGenerator: React.FC = () => {
     console.log(`Temps de trajet ${terminus2}→${terminus1}: ${travelTime2to1}min`);
     console.log(`Battement à ${terminus1}: ${battement2to1}min`);
     console.log(`Cycle complet: ${cycleTime}min`);
+    console.log(`Pause minimale demandée: ${minPauseTime}min`);
     console.log(`${minVehicles} véhicules nécessaires pour une fréquence de ${frequency}min`);
     
     const scheduleList: Schedule[] = [];
@@ -664,6 +688,17 @@ const BusScheduleGenerator: React.FC = () => {
                 value={frequency}
                 onChange={(e) => setFrequency(parseInt(e.target.value) || 10)}
                 className="input-field"
+              />
+            </div>
+            <div className="input-group">
+              <label>Pause minimale (minutes)</label>
+              <input
+                type="number"
+                value={minPauseTime}
+                onChange={(e) => setMinPauseTime(parseInt(e.target.value) || 0)}
+                className="input-field"
+                min="0"
+                placeholder="0 = automatique"
               />
             </div>
           </div>
