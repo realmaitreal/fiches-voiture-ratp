@@ -2,7 +2,7 @@
 
 Un générateur d'horaires théoriques pour les lignes de bus, conçu pour créer des fiches de service détaillées avec système de codes TM (Transport Management) intégré.
 
-![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-3.0.1-blue.svg)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-646cff.svg)
@@ -27,24 +27,7 @@ Cette application web permet de générer automatiquement des fiches de service 
 
 ### Captures d'écran
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  🚌 Générateur de Fiches Voitures                          │
-├─────────────────────────────────────────────────────────────┤
-│  Configuration de la ligne                                  │
-│  ┌─────────┬─────────┬─────────┬─────────┐                │
-│  │ Ligne   │ Term. 1 │ Term. 2 │ Dépôt   │                │
-│  │ 73      │ MO      │ CG      │ CHA     │                │
-│  └─────────┴─────────┴─────────┴─────────┘                │
-│                                                             │
-│  Points de régulation                                       │
-│  MO → CG: RPC(9min) → ET1(12min) → PN(5min) → GAA(8min)  │
-│  CG → MO: GAA(7min) → PN(11min) → ET2(14min) → RPC(8min) │
-│                                                             │
-│  TM: 1730MOCGRPC92ET1C5PN58GAA84GAA7PN0BET2E8RPC8...      │
-│  [Générer les fiches] [Copier TM] [Imprimer]              │
-└─────────────────────────────────────────────────────────────┘
-```
+![image](https://github.com/user-attachments/assets/b41527f2-e8b0-4d7e-a2b7-bc963dbb2a50)
 
 ## ✨ Fonctionnalités
 
@@ -226,7 +209,7 @@ fiches-voiture-ratp/
 ├── 📁 luau/                 # Décodeur Luau (séparé)
 │   ├── 📄 TMDecoder.luau    # Module de décodage
 │   └── 📄 Example.luau      # Exemple d'utilisation
-├── 📄 package.json          # Dépendances et scripts (v3.0.0)
+├── 📄 package.json          # Dépendances et scripts (v3.0.1)
 ├── 📄 tsconfig.json         # Configuration TypeScript
 ├── 📄 vite.config.ts        # Configuration Vite
 ├── 📄 eslint.config.js      # Configuration ESLint
@@ -343,7 +326,7 @@ Utilisez les templates GitHub pour :
 
 ## 📝 Changelog
 
-### Version 3.0.0 (Actuelle)
+### Version 3.0.1 (Actuelle)
 - ✨ Interface complète de configuration
 - 🚀 Génération automatique des fiches
 - 🔐 Système TM avec encodage/décodage
