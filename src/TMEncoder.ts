@@ -22,17 +22,11 @@ interface TMData {
 }
 
 class TMEncoder {
-  private static readonly ALPHABET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   private static readonly VERSION = '1';
 
   // Encode un nombre en base36
   private static encodeNumber(num: number, minLength: number = 1): string {
     return num.toString(36).toUpperCase().padStart(minLength, '0');
-  }
-
-  // Decode un nombre depuis base36
-  private static decodeNumber(str: string): number {
-    return parseInt(str, 36);
   }
 
   // Encode un texte en base36 (3 chars max)
