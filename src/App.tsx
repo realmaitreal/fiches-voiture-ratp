@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { ChevronRight, Plus, Trash2, Download } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, Plus, Trash2, Download, Copy, Check } from 'lucide-react';
 import './App.css';
+
+// Import du système TM
+import { TMEncoder, copyTMToClipboard } from './TMEncoder';
 
 // TypeScript interfaces
 interface RegulationPoint {
@@ -82,6 +85,52 @@ const BusScheduleGenerator: React.FC = () => {
   const [minPauseTime, setMinPauseTime] = useState<number>(0);
   
   const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [currentTM, setCurrentTM] = useState<string>('');
+  const [tmCopied, setTmCopied] = useState<boolean>(false);
+
+  // Génère le TM basé sur les paramètres actuels
+  const generateTM = (): string => {
+    return TMEncoder.generateFromState({
+      lineNumber,
+      terminus1,
+      terminus2,
+      depotCode,
+      regulationPoints1to2,
+      regulationPoints2to1,
+      totalTime1to2,
+      totalTime2to1,
+      lastRegToTerminus1to2,
+      lastRegToTerminus2to1,
+      hautLePied1,
+      hautLePied2,
+      firstDeparture,
+      lastReturn,
+      frequency,
+      minPauseTime
+    });
+  };
+
+  // Met à jour le TM quand les paramètres changent
+  useEffect(() => {
+    const newTM = generateTM();
+    setCurrentTM(newTM);
+  }, [
+    lineNumber, terminus1, terminus2, depotCode,
+    regulationPoints1to2, regulationPoints2to1,
+    totalTime1to2, totalTime2to1,
+    lastRegToTerminus1to2, lastRegToTerminus2to1,
+    hautLePied1, hautLePied2,
+    firstDeparture, lastReturn, frequency, minPauseTime
+  ]);
+
+  // Copie le TM dans le presse-papiers
+  const handleCopyTM = async (): Promise<void> => {
+    const success = await copyTMToClipboard(currentTM);
+    if (success) {
+      setTmCopied(true);
+      setTimeout(() => setTmCopied(false), 2000);
+    }
+  };
 
   const parseTime = (timeStr: string): number => {
     const [hours, minutes] = timeStr.split(':').map(Number);
@@ -314,9 +363,10 @@ const BusScheduleGenerator: React.FC = () => {
     terminus1: string;
     terminus2: string;
     lineNumber: string;
+    tmCode: string;
   }
 
-  const ScheduleSheet: React.FC<ScheduleSheetProps> = ({ schedule, terminus1, terminus2, lineNumber }) => {
+  const ScheduleSheet: React.FC<ScheduleSheetProps> = ({ schedule, terminus1, terminus2, lineNumber, tmCode }) => {
     // Vérification de sécurité
     if (!schedule.trips || schedule.trips.length === 0) {
       return <div>Erreur: Aucun trajet trouvé pour ce véhicule</div>;
@@ -336,7 +386,7 @@ const BusScheduleGenerator: React.FC = () => {
         <div className="schedule-header">
           <div className="schedule-header-left">
             <span className="line-number">Ligne: {lineNumber}</span>
-            <span className="tm-code">TM: 073LAV0215 du</span>
+            <span className="tm-code">TM: {tmCode}</span>
           </div>
           <div className="vehicle-number">Voiture: {schedule.vehicleNumber.toString().padStart(3, '0')}</div>
         </div>
@@ -462,6 +512,14 @@ const BusScheduleGenerator: React.FC = () => {
         
         <div className="config-section">
           <h2 className="section-title">Configuration de la ligne</h2>
+          
+          {/* Affichage du TM généré */}
+          <div className="tm-display">
+            <div className="tm-info">
+              <label>Code TM généré:</label>
+              <span className="tm-code">{currentTM}</span>
+            </div>
+          </div>
           
           <div className="input-grid">
             <div className="input-group">
@@ -715,12 +773,21 @@ const BusScheduleGenerator: React.FC = () => {
           <div className="results-section">
             <div className="results-header">
               <h2 className="section-title">Fiches générées ({schedules.length} voitures)</h2>
-              <button
-                onClick={() => window.print()}
-                className="print-btn"
-              >
-                <Download size={20} /> Imprimer
-              </button>
+              <div className="results-actions">
+                <button
+                  onClick={handleCopyTM}
+                  className={`copy-tm-btn ${tmCopied ? 'copied' : ''}`}
+                >
+                  {tmCopied ? <Check size={20} /> : <Copy size={20} />}
+                  {tmCopied ? 'Copié!' : 'Copier TM'}
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="print-btn"
+                >
+                  <Download size={20} /> Imprimer
+                </button>
+              </div>
             </div>
             
             <div className="schedules-container">
@@ -731,6 +798,7 @@ const BusScheduleGenerator: React.FC = () => {
                   terminus1={terminus1}
                   terminus2={terminus2}
                   lineNumber={lineNumber}
+                  tmCode={currentTM}
                 />
               ))}
             </div>

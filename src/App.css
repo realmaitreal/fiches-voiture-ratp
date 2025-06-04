@@ -376,4 +376,118 @@
     border-top: 3px solid #000 !important;
     padding-top: 10px !important;
   }
+
+  /* Styles additionnels pour le système TM */
+
+/* Affichage du TM généré */
+.tm-display {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tm-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tm-info label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 120px;
+}
+
+.tm-info .tm-code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #0066cc;
+  background-color: white;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+/* Actions des résultats */
+.results-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Bouton Copier TM */
+.copy-tm-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.copy-tm-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+.copy-tm-btn.copied {
+  background-color: #28a745;
+}
+
+.copy-tm-btn.copied:hover {
+  background-color: #218838;
+}
+
+/* Code TM dans l'en-tête de fiche */
+.schedule-header .tm-code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #666;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tm-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .tm-info label {
+    min-width: auto;
+  }
+  
+  .results-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .copy-tm-btn,
+  .print-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Animation pour le feedback de copie */
+@keyframes copySuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.copy-tm-btn.copied {
+  animation: copySuccess 0.3s ease;
+}
 }
