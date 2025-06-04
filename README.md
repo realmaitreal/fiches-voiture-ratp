@@ -2,7 +2,7 @@
 
 Un générateur d'horaires théoriques pour les lignes de bus, conçu pour créer des fiches de service détaillées avec système de codes TM (Transport Management) intégré.
 
-![Version](https://img.shields.io/badge/version-3.0.1-blue.svg)
+![Version](https://img.shields.io/badge/version-3.1.0-blue.svg)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-646cff.svg)
@@ -209,7 +209,7 @@ fiches-voiture-ratp/
 ├── 📁 luau/                 # Décodeur Luau (séparé)
 │   ├── 📄 TMDecoder.luau    # Module de décodage
 │   └── 📄 Example.luau      # Exemple d'utilisation
-├── 📄 package.json          # Dépendances et scripts (v3.0.1)
+├── 📄 package.json          # Dépendances et scripts (v3.1.0)
 ├── 📄 tsconfig.json         # Configuration TypeScript
 ├── 📄 vite.config.ts        # Configuration Vite
 ├── 📄 eslint.config.js      # Configuration ESLint
@@ -326,7 +326,7 @@ Utilisez les templates GitHub pour :
 
 ## 📝 Changelog
 
-### Version 3.0.1 (Actuelle)
+### Version 3.1.0 (Actuelle)
 - ✨ Interface complète de configuration
 - 🚀 Génération automatique des fiches
 - 🔐 Système TM avec encodage/décodage
