@@ -138,18 +138,23 @@ const BusScheduleGenerator: React.FC = () => {
   };
 
   const formatTimeForSchedule = (minutes: number, prevHour: number | null = null): string => {
-    const hours = Math.floor(minutes / 60);
+    const hours = Math.floor(minutes / 60) % 24;
     const mins = minutes % 60;
-    
+
     if (prevHour !== null && hours !== prevHour) {
-      return `${hours}${mins.toString().padStart(2, '0')}`;
+      return `${hours.toString().padStart(2, '0')}${mins.toString().padStart(2, '0')}`;
     }
     return mins.toString().padStart(2, '0');
   };
 
   const generateSchedules = (): void => {
     const firstDepMin = parseTime(firstDeparture);
-    const lastRetMin = parseTime(lastReturn);
+    let lastRetMin = parseTime(lastReturn);
+
+    // Si le dernier retour est après minuit (heure < premier départ), ajouter 24h
+    if (lastRetMin <= firstDepMin) {
+      lastRetMin += 24 * 60;
+    }
     
     // Calcul des temps de trajet réels
     const travelTime1to2 = regulationPoints1to2.reduce((sum, point) => sum + point.time, 0) + lastRegToTerminus1to2;
@@ -240,7 +245,7 @@ const BusScheduleGenerator: React.FC = () => {
         trip.outbound.push({
           point: 'HD',
           time: time,
-          formatted: `${Math.floor(time / 60)}${(time % 60).toString().padStart(2, '0')}`
+          formatted: `${(Math.floor(time / 60) % 24).toString().padStart(2, '0')}${(time % 60).toString().padStart(2, '0')}`
         });
         
         // Points de régulation aller
@@ -273,7 +278,7 @@ const BusScheduleGenerator: React.FC = () => {
         trip.inbound.push({
           point: 'HD',
           time: time,
-          formatted: `${Math.floor(time / 60)}${(time % 60).toString().padStart(2, '0')}`
+          formatted: `${(Math.floor(time / 60) % 24).toString().padStart(2, '0')}${(time % 60).toString().padStart(2, '0')}`
         });
         
         // Points de régulation retour
@@ -394,7 +399,7 @@ const BusScheduleGenerator: React.FC = () => {
         {/* Haut-le-pied sortie */}
         {schedule.hautLePiedOut && (
           <div className="haut-le-pied-out">
-            AGENT {schedule.hautLePiedOut.agent} SORT de {schedule.hautLePiedOut.from} vers {schedule.hautLePiedOut.to} à {Math.floor(schedule.hautLePiedOut.time / 60)}{(schedule.hautLePiedOut.time % 60).toString().padStart(2, '0')}
+            AGENT {schedule.hautLePiedOut.agent} SORT de {schedule.hautLePiedOut.from} vers {schedule.hautLePiedOut.to} à {(Math.floor(schedule.hautLePiedOut.time / 60) % 24).toString().padStart(2, '0')}{(schedule.hautLePiedOut.time % 60).toString().padStart(2, '0')}
           </div>
         )}
         
@@ -498,7 +503,7 @@ const BusScheduleGenerator: React.FC = () => {
         {/* Haut-le-pied retour */}
         {schedule.hautLePiedIn && (
           <div className="haut-le-pied-in">
-            AGENT {schedule.hautLePiedIn.agent} à {Math.floor(schedule.hautLePiedIn.at / 60)}{(schedule.hautLePiedIn.at % 60).toString().padStart(2, '0')} RENTRE à {schedule.hautLePiedIn.to} à {Math.floor(schedule.hautLePiedIn.time / 60)}{(schedule.hautLePiedIn.time % 60).toString().padStart(2, '0')}
+            AGENT {schedule.hautLePiedIn.agent} à {(Math.floor(schedule.hautLePiedIn.at / 60) % 24).toString().padStart(2, '0')}{(schedule.hautLePiedIn.at % 60).toString().padStart(2, '0')} RENTRE à {schedule.hautLePiedIn.to} à {(Math.floor(schedule.hautLePiedIn.time / 60) % 24).toString().padStart(2, '0')}{(schedule.hautLePiedIn.time % 60).toString().padStart(2, '0')}
           </div>
         )}
       </div>
